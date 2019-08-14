@@ -9,6 +9,7 @@ pylint = "*"
 [packages]
 jira = "*"
 keyring = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"
