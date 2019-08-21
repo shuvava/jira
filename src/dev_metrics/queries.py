@@ -33,7 +33,7 @@ class JiraApi:
     def get_statuses(self):
         return self.jira.statuses()
 
-    def get_all_issues_for_project(self, project_key, fields='id,key,status,summary,customfield_10002', expand='changelog'):
+    def get_all_issues_for_project(self, project_key, fields='id,key,status,summary,customfield_10002,created,updated', expand='changelog'):
         result = []
         current = 0
         total = 1
@@ -51,5 +51,5 @@ class JiraApi:
             result.extend(items)
         return result
 
-    def get_issue(self, issue_id, fields='id,key,status,summary,customfield_10002', expand='changelog'):
+    def get_issue(self, issue_id, fields='id,key,status,summary,customfield_10002,created,updated', expand='changelog'):
         return self.jira.issue(issue_id, fields=fields, expand=expand)
