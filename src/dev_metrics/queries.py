@@ -51,5 +51,23 @@ class JiraApi:
             result.extend(items)
         return result
 
+    def get_all_issues_for_period(self, start_date='-7d', fields='id,key,status,summary,customfield_10002,created,updated,worklog', expand='changelog'):
+        result = []
+        current = 0
+        total = 1
+        while current<total:
+            #
+            items = self.jira.search_issues(
+                f'updated >= {start_date} order by id',
+                fields=fields,
+                expand=expand ,
+                maxResults=50,
+                startAt=current,
+                )
+            total = items.total
+            current += len(items)
+            result.extend(items)
+        return result
+
     def get_issue(self, issue_id, fields='id,key,status,summary,customfield_10002,created,updated', expand='changelog'):
         return self.jira.issue(issue_id, fields=fields, expand=expand)

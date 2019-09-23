@@ -160,6 +160,10 @@ def stat_some_teams():
         print(f'team {team}')
         get_team_stats_lead_time(team, False)
 
+def get_updated():
+    items = jra.get_all_issues_for_period()
+    print(len(items))
+
 if __name__ == "__main__":
     usr = getuser()
     print(usr)
