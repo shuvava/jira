@@ -22,8 +22,10 @@ from .pass_mng import getuser, get_jira_password
 #     }
 # }
 class JiraApi:
-    def __init__(self, url):
-        usr = getuser()
+    def __init__(self, url, userdomain=None):
+        if userdomain is None:
+            userdomain = ''
+        usr = f'{getuser()}{userdomain}'
         passwd = get_jira_password(True)
         self.jira = JIRA(url, basic_auth=(usr, passwd))
 

@@ -14,6 +14,7 @@ from utills.data_dump import write_issues
 
 
 base_url = 'https://ira_host'
+user_domain = '@comp.com'
 
 BACKUP_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), '../backup'))
 
@@ -24,7 +25,7 @@ def get_filename(path=BACKUP_PATH, team=''):
     file_name = f'search_{team}_{now}.jsonl'
     return os.path.join(path, file_name)
 
-jra = JiraApi(base_url)
+jra = JiraApi(base_url, user_domain)
 
 final_statuses = {'Closed', 'Done', 'Deployed'}
 

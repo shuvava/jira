@@ -8,8 +8,9 @@ from dev_metrics import JiraApi
 from dev_metrics.pass_mng import getuser, get_jira_password, remove_jira_password
 
 base_url = 'https://ira_host'
+user_domain = '@comp.com'
 
-jra = JiraApi(base_url)
+jra = JiraApi(base_url, user_domain)
 
 def prase_time(dt=None):
     try:
