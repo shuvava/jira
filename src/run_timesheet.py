@@ -16,7 +16,7 @@ jra = JiraApi(base_url, user_domain)
 
 def prase_time(dt):
     try:
-        return datetime.strptime(dt, "%Y-%m-%dT%H:%M:%S.%f+0000")
+        return datetime.strptime(dt, "%Y-%m-%dT%H:%M:%S.%f%z")
     except:
         return None
 

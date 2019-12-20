@@ -51,13 +51,13 @@ def get_issue_details(key='PAYPROC-277'):
     for h in history:
         print(h)
     created_dt=issue.fields.created
-    created_dt = datetime.strptime(created_dt, "%Y-%m-%dT%H:%M:%S.%f+0000")
+    created_dt = datetime.strptime(created_dt, "%Y-%m-%dT%H:%M:%S.%f%z")
     dev_dt= next((i[0] for i in history if i[2]=='In Development'), created_dt)
     if  isinstance(dev_dt, str):
-        dev_dt = datetime.strptime(dev_dt, "%Y-%m-%dT%H:%M:%S.%f+0000")
+        dev_dt = datetime.strptime(dev_dt, "%Y-%m-%dT%H:%M:%S.%f%z")
     last_dt = next((i[0] for i in history if i[2] in final_statuses), now)
     if  isinstance(last_dt, str):
-        last_dt = datetime.strptime(last_dt, "%Y-%m-%dT%H:%M:%S.%f+0000")
+        last_dt = datetime.strptime(last_dt, "%Y-%m-%dT%H:%M:%S.%f%z")
     time_to_dev=dev_dt-created_dt
     time_to_dep=last_dt-dev_dt
     print(f'created_dt={created_dt} dev_dt={dev_dt} last_dt={last_dt}')
@@ -88,19 +88,19 @@ def get_team_stats_lead_time(team_name='PAYPROC', show_points=True):
         history = [(h.created, i.fromString, i.toString) for h in issue.changelog.histories for i in h.items if i.field == 'status']
         if len(history) > 0:
             created_dt=issue.fields.created
-            created_dt = datetime.strptime(created_dt, "%Y-%m-%dT%H:%M:%S.%f+0000")
+            created_dt = datetime.strptime(created_dt, "%Y-%m-%dT%H:%M:%S.%f%z")
             dev_dt= next((i[0] for i in history if i[2] in {'In Development', 'Selected for Development'}), created_dt)
             if  isinstance(dev_dt, str):
-                dev_dt = datetime.strptime(dev_dt, "%Y-%m-%dT%H:%M:%S.%f+0000")
+                dev_dt = datetime.strptime(dev_dt, "%Y-%m-%dT%H:%M:%S.%f%z")
             qa_dt= next((i[0] for i in history if i[2]in {'Ready For Review', 'Needs Review'}), dev_dt)
             if  isinstance(qa_dt, str):
-                qa_dt = datetime.strptime(qa_dt, "%Y-%m-%dT%H:%M:%S.%f+0000")
+                qa_dt = datetime.strptime(qa_dt, "%Y-%m-%dT%H:%M:%S.%f%z")
             dep_dt= next((i[0] for i in history if i[2]=='Ready for Deployment'), qa_dt)
             if  isinstance(dep_dt, str):
-                dep_dt = datetime.strptime(dep_dt, "%Y-%m-%dT%H:%M:%S.%f+0000")
+                dep_dt = datetime.strptime(dep_dt, "%Y-%m-%dT%H:%M:%S.%f%z")
             last_dt = next((i[0] for i in history if i[2] in final_statuses), now)
             if  isinstance(last_dt, str):
-                last_dt = datetime.strptime(last_dt, "%Y-%m-%dT%H:%M:%S.%f+0000")
+                last_dt = datetime.strptime(last_dt, "%Y-%m-%dT%H:%M:%S.%f%z")
             _time_to_dev=dev_dt-created_dt
             _time_in_dev=qa_dt-dev_dt
             _time_in_qa=dep_dt-qa_dt
